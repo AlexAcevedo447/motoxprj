@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    {% load static %}
+        <link rel="stylesheet" href="../../../static/motoxapp/css/index.css">
+    <title>Bienvenido!!!</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <nav class="items">
+                <h1 class="main-title">Te damos la bienvenida a MotoX</h1>
+            </nav>
+        </div>
+    </div>
+
+    <div class="botones">
+        <div class="container">
+            <h3>Puedes ingresar como: </h3>
+            <div class="btn_container">
+                <div >
+                    <a href="{% url 'loginAdmin' %}" class="btn">Administrador</a>
+                </div>
+                <div >
+                    <a href="{% url 'loginCond' %}" class="btn">Conductor</a>
+                </div>
+                <div >
+                    <a href="{% url 'loginPas' %}" class="btn">Pasajero</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="contenedor">
+            <p>Auspiciado por MotoX - SENA </p>
+        </div>
+    </footer>
+</body>
+</html>

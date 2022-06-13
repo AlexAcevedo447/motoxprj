@@ -1,0 +1,52 @@
+.navbar{
+    background-color: #4BC2FA;
+    padding: 70px;
+}
+
+.container{
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main-title{
+    text-align: center;
+}
+
+.botones{
+    background-color: #4BC2FA;
+    margin-top: 20px;
+    padding: 70px;
+}
+
+.btn{
+    background-color: #4BC2FA;
+    margin-left: 30px;
+    font-size: 30px;
+}
+
+.btn_container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 70px;
+}
+
+footer{
+    background-color: #4BC2FA;
+    margin-top: 299px;
+    padding: 50px;
+}
+
+.contenedor{
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+p{
+    font-size: 30px;
+    text-align: center;
+}

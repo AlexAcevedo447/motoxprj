@@ -1,0 +1,36 @@
+{% extends 'motoxapp/bases/base_login.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    {% block estilos %}
+        
+    {% endblock estilos %}
+</head>
+<body>
+    {% block titulo %}Inicia sesión como pasajero{% endblock titulo %}
+
+    <h2>{{mensaje}}</h2>
+
+    {% block formulario %}
+        <form action="{% url 'validarPasajero' %}" method="post" class="form">
+            {% csrf_token %}
+                <div class="form-control inp-container d-flex flex-col">
+                    <input type="text" class="input" placeholder="Correo" name="email" id="email">
+                </div>
+                <div class="form-control inp-container d-flex flex-col">
+                    <input type="password" class="input" placeholder="Contraseña" name="contra" id="contra">
+                </div>
+
+                <div class="btn-block btn-container d-flex flex-col">
+                    <input type="submit" value="Iniciar Sesión" class="boton">
+                </div>
+        </form>
+    {% endblock formulario %}
+</body>
+</html>

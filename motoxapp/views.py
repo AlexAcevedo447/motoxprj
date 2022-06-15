@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from django.http.response import JsonResponse, HttpResponse
 from django.views import View
@@ -27,8 +28,6 @@ def validarPasajero(request):
     
     try:
         
-        
-        
         usr = Pasajero.objects.get(correo = email, contrasena = passw)
         
         conductores = Conductor.objects.all()
@@ -43,9 +42,10 @@ def validarPasajero(request):
     except Pasajero.DoesNotExist:    
         
         mensaje = "Usuario y contraseña incorrectos"
-        return render(request,"motoxapp/errores/error_ingreso.html",mensaje)
+        return render(request,"motoxapp/errores/error_ingreso.html")
     
-        
+def logOutPas(request):
+    return HttpResponse("Saliendo")
     
 def post(request):
     pass

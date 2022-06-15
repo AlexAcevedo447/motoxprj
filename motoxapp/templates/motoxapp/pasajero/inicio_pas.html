@@ -1,0 +1,34 @@
+{% extends 'motoxapp/bases/base_pasajero.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% block titulo_inicio %}
+        Conductores disponibles
+    {% endblock titulo_inicio %}
+    {% block contenido_tabla %}
+        {% for conductor in conductores %}
+
+            <tbody>
+                <tr>
+                    <td>{{conductor.id}}</td>
+                    <td>{{conductor.cedula}}</td>
+                    <td>{{conductor.nombre}}</td>
+                    <td>{{conductor.correo}}</td>
+                    <td>{{conductor.contrasena}}</td>
+                    <td>
+                        <a href="" class="btn btn-primary">Editar</a>
+                        <a href="" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+
+        {% endfor %}
+    {% endblock contenido_tabla %}
+</body>
+</html>

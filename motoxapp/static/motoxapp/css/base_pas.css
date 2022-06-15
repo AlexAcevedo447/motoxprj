@@ -1,0 +1,18 @@
+.table-head{
+    padding: 15px;
+    color: white;
+}
+
+.tr-container{
+    background: #4BC2FA;
+}
+
+td{
+    border-bottom: black 1px solid;
+
+    padding: 10px;
+}
+
+
+
+

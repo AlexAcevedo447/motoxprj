@@ -8,5 +8,5 @@ urlpatterns = [
     path("/pasajero", views.loginPas, name="loginPas"),
     path("/pasajero/validar", views.validarPasajero, name="validarPasajero"),
     path("/manager", views.loginAdmin, name="loginAdmin"),
-    
+    path("/logout", views.logOutPas, name="logOutPas"),
 ]

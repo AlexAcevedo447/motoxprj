@@ -14,5 +14,23 @@
 </head>
 <body>
     {% block titulo %}Inicia sesión como conductor{% endblock titulo %}
+
+    <h2>{{mensaje}}</h2>
+
+    {% block formulario %}
+        <form action="{% url 'validarConductor' %}" method="post" class="form">
+            {% csrf_token %}
+                <div class="form-control inp-container d-flex flex-col">
+                    <input type="text" class="input" placeholder="Correo" name="email" id="email">
+                </div>
+                <div class="form-control inp-container d-flex flex-col">
+                    <input type="password" class="input" placeholder="Contraseña" name="contra" id="contra">
+                </div>
+
+                <div class="btn-block btn-container d-flex flex-col">
+                    <input type="submit" value="Iniciar Sesión" class="boton">
+                </div>
+        </form>
+    {% endblock formulario %}
 </body>
 </html>

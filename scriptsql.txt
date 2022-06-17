@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-06-2022 a las 00:35:34
+-- Tiempo de generación: 18-06-2022 a las 00:42:04
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -89,7 +89,19 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (25, 'Can add conductor', 7, 'add_conductor'),
 (26, 'Can change conductor', 7, 'change_conductor'),
 (27, 'Can delete conductor', 7, 'delete_conductor'),
-(28, 'Can view conductor', 7, 'view_conductor');
+(28, 'Can view conductor', 7, 'view_conductor'),
+(29, 'Can add administrador', 8, 'add_administrador'),
+(30, 'Can change administrador', 8, 'change_administrador'),
+(31, 'Can delete administrador', 8, 'delete_administrador'),
+(32, 'Can view administrador', 8, 'view_administrador'),
+(33, 'Can add pasajero', 9, 'add_pasajero'),
+(34, 'Can change pasajero', 9, 'change_pasajero'),
+(35, 'Can delete pasajero', 9, 'delete_pasajero'),
+(36, 'Can view pasajero', 9, 'view_pasajero'),
+(37, 'Can add sesiones', 10, 'add_sesiones'),
+(38, 'Can change sesiones', 10, 'change_sesiones'),
+(39, 'Can delete sesiones', 10, 'delete_sesiones'),
+(40, 'Can view sesiones', 10, 'view_sesiones');
 
 -- --------------------------------------------------------
 
@@ -116,7 +128,7 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$320000$FY4Yi2aoucnQlHmwbMycPx$gsxw9wIVzuEI5/mU9dhvctwRWgeEmkRL9GH9CKtiK1Q=', '2022-06-13 17:49:26.618371', 1, 'AlexAcevedo', '', '', 'paniaguaalexis40@gmail.com', 1, 1, '2022-06-13 17:45:51.272133');
+(1, 'pbkdf2_sha256$320000$Uq4AXAkn0OpBW7B4TDwlyp$Kf/Vj22FjntGQ0UFFHgYmXdQWLa+xJwcKvB5BOm58SY=', '2022-06-17 21:58:19.044141', 1, 'AlexAcevedo', '', '', 'paniaguaalexis40@gmail.com', 1, 1, '2022-06-17 21:57:53.993751');
 
 -- --------------------------------------------------------
 
@@ -164,7 +176,7 @@ CREATE TABLE `django_admin_log` (
 --
 
 INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`, `action_flag`, `change_message`, `content_type_id`, `user_id`) VALUES
-(1, '2022-06-13 17:50:49.936513', '0', 'Conductor object (0)', 1, '[{\"added\": {}}]', 7, 1);
+(1, '2022-06-17 21:58:50.582412', '0', 'Administrador object (0)', 1, '[{\"added\": {}}]', 8, 1);
 
 -- --------------------------------------------------------
 
@@ -188,7 +200,10 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
 (5, 'contenttypes', 'contenttype'),
+(8, 'motoxapp', 'administrador'),
 (7, 'motoxapp', 'conductor'),
+(9, 'motoxapp', 'pasajero'),
+(10, 'motoxapp', 'sesiones'),
 (6, 'sessions', 'session');
 
 -- --------------------------------------------------------
@@ -209,25 +224,27 @@ CREATE TABLE `django_migrations` (
 --
 
 INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
-(1, 'contenttypes', '0001_initial', '2022-06-13 17:42:45.040501'),
-(2, 'auth', '0001_initial', '2022-06-13 17:42:52.515119'),
-(3, 'admin', '0001_initial', '2022-06-13 17:42:55.054311'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2022-06-13 17:42:55.162052'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2022-06-13 17:42:55.251730'),
-(6, 'contenttypes', '0002_remove_content_type_name', '2022-06-13 17:42:56.567618'),
-(7, 'auth', '0002_alter_permission_name_max_length', '2022-06-13 17:42:57.921852'),
-(8, 'auth', '0003_alter_user_email_max_length', '2022-06-13 17:42:58.127126'),
-(9, 'auth', '0004_alter_user_username_opts', '2022-06-13 17:42:58.243288'),
-(10, 'auth', '0005_alter_user_last_login_null', '2022-06-13 17:42:59.211270'),
-(11, 'auth', '0006_require_contenttypes_0002', '2022-06-13 17:42:59.273593'),
-(12, 'auth', '0007_alter_validators_add_error_messages', '2022-06-13 17:42:59.329377'),
-(13, 'auth', '0008_alter_user_username_max_length', '2022-06-13 17:42:59.673954'),
-(14, 'auth', '0009_alter_user_last_name_max_length', '2022-06-13 17:42:59.872831'),
-(15, 'auth', '0010_alter_group_name_max_length', '2022-06-13 17:43:00.223993'),
-(16, 'auth', '0011_update_proxy_permissions', '2022-06-13 17:43:00.298288'),
-(17, 'auth', '0012_alter_user_first_name_max_length', '2022-06-13 17:43:00.549917'),
-(18, 'sessions', '0001_initial', '2022-06-13 17:43:01.106697'),
-(19, 'motoxapp', '0001_initial', '2022-06-13 17:47:29.569728');
+(1, 'contenttypes', '0001_initial', '2022-06-17 21:45:42.477130'),
+(2, 'auth', '0001_initial', '2022-06-17 21:45:50.150144'),
+(3, 'admin', '0001_initial', '2022-06-17 21:45:51.662452'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2022-06-17 21:45:51.706448'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2022-06-17 21:45:51.747720'),
+(6, 'contenttypes', '0002_remove_content_type_name', '2022-06-17 21:45:52.801620'),
+(7, 'auth', '0002_alter_permission_name_max_length', '2022-06-17 21:45:53.843589'),
+(8, 'auth', '0003_alter_user_email_max_length', '2022-06-17 21:45:54.071541'),
+(9, 'auth', '0004_alter_user_username_opts', '2022-06-17 21:45:54.110168'),
+(10, 'auth', '0005_alter_user_last_login_null', '2022-06-17 21:45:54.675641'),
+(11, 'auth', '0006_require_contenttypes_0002', '2022-06-17 21:45:54.786849'),
+(12, 'auth', '0007_alter_validators_add_error_messages', '2022-06-17 21:45:54.842645'),
+(13, 'auth', '0008_alter_user_username_max_length', '2022-06-17 21:45:54.942699'),
+(14, 'auth', '0009_alter_user_last_name_max_length', '2022-06-17 21:45:55.087010'),
+(15, 'auth', '0010_alter_group_name_max_length', '2022-06-17 21:45:55.213471'),
+(16, 'auth', '0011_update_proxy_permissions', '2022-06-17 21:45:55.300486'),
+(17, 'auth', '0012_alter_user_first_name_max_length', '2022-06-17 21:45:55.401766'),
+(18, 'motoxapp', '0001_initial', '2022-06-17 21:45:55.611247'),
+(19, 'motoxapp', '0002_administrador_pasajero', '2022-06-17 21:45:55.967679'),
+(20, 'motoxapp', '0003_sesiones', '2022-06-17 21:45:56.192564'),
+(21, 'sessions', '0001_initial', '2022-06-17 21:45:56.533999');
 
 -- --------------------------------------------------------
 
@@ -246,7 +263,28 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('stxng2t0vt194rg2lfh6dfj5m5v3bzwb', '.eJxVjMsOwiAQRf-FtSE8Bgou3fsNZIBBqgaS0q6M_65NutDtPefcFwu4rTVsg5YwZ3Zmkp1-t4jpQW0H-Y7t1nnqbV3myHeFH3Twa8_0vBzu30HFUb81qWLBpeyLcT5qDdEZpw0JBcojJheByE-QxIRZUikWoxWFHEitUVr2_gDoETgQ:1o0oBq:87NacjFoLhZxCz1AsVqmcIMZSZsS9XoKqd7C-O8KS98', '2022-06-27 17:49:26.651688');
+('bwqoxi17rnbfhwfalpt1iegj44ijb3fv', '.eJxVjEEOwiAQRe_C2hDqlAIu3XsGMsNMpWpoUtqV8e7SpAvdvvf-f6uI25rjVmWJE6uL6tTplxGmp5Rd8APLfdZpLusykd4TfdiqbzPL63q0fwcZa25rSQEMG-sZxt44QdcBoDMWDPkkgyfruFEgG9LZcx8IvcchEIzcpPp8Ad8sOA8:1o2Jyt:borCy5bMUipaRvA52Hf4MJ4-jqbo53ljCWvoImspzis', '2022-07-01 21:58:19.077854');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `motoxapp_administrador`
+--
+
+CREATE TABLE `motoxapp_administrador` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(148) NOT NULL,
+  `cedula` varchar(148) NOT NULL,
+  `correo` varchar(148) NOT NULL,
+  `contrasena` varchar(148) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `motoxapp_administrador`
+--
+
+INSERT INTO `motoxapp_administrador` (`id`, `nombre`, `cedula`, `correo`, `contrasena`) VALUES
+(1, 'Manuel Castro', '54654464', 'manuel@castro.com', 'Manuel');
 
 -- --------------------------------------------------------
 
@@ -267,7 +305,44 @@ CREATE TABLE `motoxapp_conductor` (
 --
 
 INSERT INTO `motoxapp_conductor` (`id`, `nombre`, `cedula`, `correo`, `contrasena`) VALUES
-(0, 'Alexander Cossio', '12454548', 'alexander@cossio.com', 'Alexander');
+(1, 'Alexander Cossio', '31654', 'alexander@cossio.com', 'Alexander');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `motoxapp_pasajero`
+--
+
+CREATE TABLE `motoxapp_pasajero` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(148) NOT NULL,
+  `cedula` varchar(148) NOT NULL,
+  `correo` varchar(148) NOT NULL,
+  `contrasena` varchar(148) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `motoxapp_pasajero`
+--
+
+INSERT INTO `motoxapp_pasajero` (`id`, `nombre`, `cedula`, `correo`, `contrasena`) VALUES
+(2, 'Cristobal Aristizabal', '12454548', 'cristobal@aristizabal.com', 'Cristobal'),
+(6, 'Cristobal Aristizabal', 'asdasc', 'cristobal@aristizabal.com', 'Cristobal'),
+(7, 'Cristobal Aristizabal', 'asdasc', 'cristobal@aristizabal.com', 'Cristobal');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `motoxapp_sesiones`
+--
+
+CREATE TABLE `motoxapp_sesiones` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(148) NOT NULL,
+  `cedula` varchar(148) NOT NULL,
+  `correo` varchar(148) NOT NULL,
+  `contrasena` varchar(148) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tablas volcadas
@@ -347,9 +422,27 @@ ALTER TABLE `django_session`
   ADD KEY `django_session_expire_date_a5c62663` (`expire_date`);
 
 --
+-- Indices de la tabla `motoxapp_administrador`
+--
+ALTER TABLE `motoxapp_administrador`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `motoxapp_conductor`
 --
 ALTER TABLE `motoxapp_conductor`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `motoxapp_pasajero`
+--
+ALTER TABLE `motoxapp_pasajero`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `motoxapp_sesiones`
+--
+ALTER TABLE `motoxapp_sesiones`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -372,7 +465,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT de la tabla `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user`
@@ -402,13 +495,37 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT de la tabla `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT de la tabla `motoxapp_administrador`
+--
+ALTER TABLE `motoxapp_administrador`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `motoxapp_conductor`
+--
+ALTER TABLE `motoxapp_conductor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `motoxapp_pasajero`
+--
+ALTER TABLE `motoxapp_pasajero`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `motoxapp_sesiones`
+--
+ALTER TABLE `motoxapp_sesiones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

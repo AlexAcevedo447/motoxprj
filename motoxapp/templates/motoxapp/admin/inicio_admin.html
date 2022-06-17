@@ -7,6 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %}Administrador: {{administrador.nombre}}{% endblock title %}
+    {% block estilos %}
+    
+        
+    
+    
+    {% endblock estilos %}
 </head>
 <body>
     {% block titulo_inicio %}
@@ -18,16 +24,16 @@
             <tbody>
                 <tr>
                     <td>{{conductor.id}}</td>
-                    <td>{{conductor.cedula}}</td>
                     <td>{{conductor.nombre}}</td>
+                    <td>{{conductor.cedula}}</td>
                     <td>{{conductor.correo}}</td>
                     <td>{{conductor.contrasena}}</td>
 
                     {% if editable == True %}
                     
                         <td>
-                            <a href="" class="btn btn-primary">Editar</a>
-                            <a href="" class="btn btn-danger">Eliminar</a>
+                            <button class="btn btn-primary" onclick="llamarFormEditarConductor({{conductor.id}})">Editar</button>
+                            <button class="btn btn-danger" onclick="eliminarConductor({{conductor.id}})">Eliminar</button>
                         </td>
                     
                     {% endif %}
@@ -48,16 +54,16 @@
             <tbody>
                 <tr>
                     <td>{{pasajero.id}}</td>
-                    <td>{{pasajero.cedula}}</td>
                     <td>{{pasajero.nombre}}</td>
+                    <td>{{pasajero.cedula}}</td>
                     <td>{{pasajero.correo}}</td>
                     <td>{{pasajero.contrasena}}</td>
 
                     {% if editable == True %}
                     
                         <td>
-                            <a href="" class="btn btn-primary">Editar</a>
-                            <a href="" class="btn btn-danger">Eliminar</a>
+                            <button class="btn btn-primary" onclick="llamarFormEditarPasajero({{pasajero.id}})">Editar</button>
+                            <button class="btn btn-danger" onclick="eliminarPasajero({{pasajero.id}})">Eliminar</button>
                         </td>
                     
                     {% endif %}
@@ -67,5 +73,8 @@
 
         {% endfor %}
     {% endblock contenido_tabla2 %}
+    
+    
+    
 </body>
 </html>

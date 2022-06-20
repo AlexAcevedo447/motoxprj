@@ -1,5 +1,14 @@
 const llamarFormEditarConductor = (id) => {
     console.log(id)
+
+    fetch("http://localhost:8000/motoxapp/filtrarCond/"+id)
+    .then(response =>response.json())
+    .then(conductor=>{
+        console.log(conductor[0])
+    }).catch((err)=>{
+        console.log(err)
+
+    })
 }
 
 const eliminarConductor = (id) => {
@@ -18,7 +27,7 @@ const eliminarConductor = (id) => {
         confirmButtonText: 'Si'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("http://localhost:8000/motoxapp/conductor/eliminar/" + id)
+            fetch("http://localhost:8000/motoxapp/admin/eliminarCond/" + id)
                 .then(res => {
                     res.json()
                 })
@@ -28,6 +37,8 @@ const eliminarConductor = (id) => {
                         'Registro borrado',
                         'success'
                     )
+
+                    location.reload()
                 })
             
         }
@@ -39,6 +50,15 @@ const eliminarConductor = (id) => {
 
 const llamarFormEditarPasajero = (id) => {
     console.log(id)
+
+    fetch("http://localhost:8000/motoxapp/filtrarPas/"+id)
+    .then(response =>response.json())
+    .then(pasajero=>{
+        console.log(pasajero[0])
+    }).catch((err)=>{
+        console.log(err)
+
+    })
 }
 
 const eliminarPasajero = (id) => {
@@ -53,7 +73,7 @@ const eliminarPasajero = (id) => {
         confirmButtonText: 'Si'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("http://localhost:8000/motoxapp/pasajero/eliminar/" + id)
+            fetch("http://localhost:8000/motoxapp/admin/eliminarPas/" + id)
                 .then(res => {
                     res.json()
                 })
@@ -62,6 +82,7 @@ const eliminarPasajero = (id) => {
                         'Registro borrado',
                         'success'
                     )
+                    location.reload()
                 })
             
         }

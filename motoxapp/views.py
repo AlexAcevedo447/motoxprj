@@ -1,6 +1,11 @@
 
+<<<<<<< HEAD
 import re
 from django.shortcuts import render
+=======
+import json
+from django.shortcuts import render,redirect
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
 from django.http.response import JsonResponse, HttpResponse
 from django.views import View
 from .models import Conductor,Pasajero,Administrador,Sesiones
@@ -95,18 +100,44 @@ def validarAdministrador(request):
         
         try:
         
+<<<<<<< HEAD
             try:
                 sesion = Sesiones.objects.all()
             
             except Sesiones.DoesNotExist:
                 sesion=Sesiones.objects.create(id=usr.id, nombre=usr.nombre, cedula=usr.cedula, correo=usr.correo, contrasena=usr.contrasena)
                
+=======
+            if len(current)>0 and current.correo == usr.correo and current.contrasena == usr.contrasena  :
+                sesion = Sesiones.objects.all()
+            
+            elif len(current) == 0:
+                Sesiones.objects.create(id=usr.id, nombre=usr.nombre, cedula=usr.cedula, correo=usr.correo, contrasena=usr.contrasena)
+                
+                
+        except Sesiones.DoesNotExist:
+            pass
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
             
         except Administrador.DoesNotExist:
             pass
             
         return inicioAdmin(request)
         
+<<<<<<< HEAD
+=======
+        
+        contexto = {
+                    "permisos" : administrador,
+                    "pasajeros" : pasajeros,
+                    "conductores" : conductores,
+                    "editable" : editable,
+                    "admiistrador" : sesion
+                }
+        
+        return render(request, "motoxapp/admin/inicio_admin.html", contexto)
+    
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
     except Administrador.DoesNotExist:    
         
         mensaje = "Usuario y contraseña incorrectos"
@@ -156,7 +187,16 @@ def guardarPasajero(request):
         
     Pasajero.objects.create(id = ident, nombre = nombre, cedula = cedula, correo = correo, contrasena = contra)
         
+<<<<<<< HEAD
     return inicioAdmin(request)
+=======
+        return  render(request,"motoxapp/admin/inicio_admin.html",adminData())
+        
+    except Exception:
+        mensaje = "Registro no guardado"
+        
+        return render(request, "motoxapp/admin/inicio_admin.html",mensaje)
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
     
 def guardarConductor(request):
     ident = request.POST['id']
@@ -169,7 +209,11 @@ def guardarConductor(request):
         Conductor.objects.create(id = ident, nombre = nombre, cedula = cedula, correo = correo, contrasena = contra)
         sesion= Sesiones.objects.all()
         
+<<<<<<< HEAD
         return inicioAdmin(request)
+=======
+        return  render(request,"motoxapp/admin/inicio_admin.html",adminData())
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
         
     except :
         mensaje = "Registro no guardado"
@@ -190,10 +234,10 @@ def eliminarPasajero(request, id):
     try:
         pasajero.delete()
     
-        return render(request,"motoxapp/admin/inicio_admin.html",adminData())
+        return  render(request,"motoxapp/admin/inicio_admin.html",adminData())
     except Exception:
     
-        return render(request,"motoxapp/admin/inicio_admin.html",adminData())
+        return render(request,"motoxapp/admin/inicio_admin.html")
 
     
     
@@ -203,11 +247,50 @@ def eliminarConductor(request, id):
     try:
         conductor.delete()
     
+<<<<<<< HEAD
         return inicioAdmin(request)
+=======
+        return  render(request,"motoxapp/admin/inicio_admin.html",adminData())
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
     except Exception:
         mensaje = "Registro no se pudo borrar"
     
+<<<<<<< HEAD
         return render(request,"motoxapp/errores/error_consulta.html",mensaje)
+=======
+        return render(request,"motoxapp/admin/inicio_admin.html")
+    
+def listarPasajero(request, urlRedirect):
+    pasajeros = Pasajero.objects.all()
+    
+    return render(request, urlRedirect, pasajeros)
+
+def listarConductor(request,urlRedirect):
+    conductores = Pasajero.objects.all()
+    
+    return render(request, urlRedirect, conductores)
+
+def listarAmbos(request, urlRedirect):
+    listarPasajero(request,urlRedirect)
+    listarConductor(request, urlRedirect)
+    
+def filtrarPasajero(request, id):
+    pasajero = list(Pasajero.objects.filter(id = id).values())
+    
+    return JsonResponse(pasajero,safe=False)
+
+def filtrarConductor(request, id):
+    conductor = list(Conductor.objects.filter(id = id).values())
+    
+    return JsonResponse(conductor,safe=False)
+    
+def editarConductor(request):
+    pass
+
+def editarPasajero(request):
+    pass
+    
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
 
 def adminData():
     editable = True
@@ -215,10 +298,15 @@ def adminData():
         
     pasajeros = Pasajero.objects.all()
     conductores = Conductor.objects.all()
+<<<<<<< HEAD
         
     sesion = Sesiones.objects.all()
         
         
+=======
+    sesion = Sesiones.objects.all()
+
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
     contexto = {
         "permisos" : administrador,
         "pasajeros" : pasajeros,

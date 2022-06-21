@@ -6,6 +6,15 @@ const editarConductor = (id) => {
 
 const llamarFormEditarPasajero = (id) => {
     console.log(id)
+
+    fetch("http://localhost:8000/motoxapp/filtrarCond/"+id)
+    .then(response =>response.json())
+    .then(conductor=>{
+        console.log(conductor[0])
+    }).catch((err)=>{
+        console.log(err)
+
+    })
 }
 
 //GUARDAR REGISTROS
@@ -55,7 +64,11 @@ const eliminarConductor = (id) => {
         confirmButtonText: 'Si'
     }).then((result) => {
         if (result.isConfirmed) {
+<<<<<<< HEAD
             fetch("http://localhost:8000/motoxapp/eliminarCond/" + id)
+=======
+            fetch("http://localhost:8000/motoxapp/admin/eliminarCond/" + id)
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
                 .then(res => {
                     res.json()
                 })
@@ -65,6 +78,10 @@ const eliminarConductor = (id) => {
                         'Registro borrado',
                         'success'
                     )
+<<<<<<< HEAD
+=======
+
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
                     location.reload()
                 })
             
@@ -75,7 +92,22 @@ const eliminarConductor = (id) => {
 
 }
 
+<<<<<<< HEAD
 
+=======
+const llamarFormEditarPasajero = (id) => {
+    console.log(id)
+
+    fetch("http://localhost:8000/motoxapp/filtrarPas/"+id)
+    .then(response =>response.json())
+    .then(pasajero=>{
+        console.log(pasajero[0])
+    }).catch((err)=>{
+        console.log(err)
+
+    })
+}
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
 
 const eliminarPasajero = (id) => {
     console.log(id)
@@ -89,7 +121,11 @@ const eliminarPasajero = (id) => {
         confirmButtonText: 'Si'
     }).then((result) => {
         if (result.isConfirmed) {
+<<<<<<< HEAD
             fetch("http://localhost:8000/motoxapp/eliminarPas/" + id)
+=======
+            fetch("http://localhost:8000/motoxapp/admin/eliminarPas/" + id)
+>>>>>>> 654be4f0520b1e0f19bdc43385b92ceda64e467b
                 .then(res => {
                     res.json()
                 })

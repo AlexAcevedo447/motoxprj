@@ -1,7 +1,6 @@
 
-from asyncio.windows_events import NULL
-from contextlib import nullcontext
-from django.shortcuts import render,redirect
+import re
+from django.shortcuts import render
 from django.http.response import JsonResponse, HttpResponse
 from django.views import View
 from .models import Conductor,Pasajero,Administrador,Sesiones
@@ -123,12 +122,30 @@ def inicioCond(request):
 def inicioPas(request):
     return render(request,"motoxapp/pasajero/inicio_pas.html",pasData())
 
-def logOutPas(request):
+def logOutPas(request,id):
     return HttpResponse("Saliendo")
 
-def filtrarConductores(request,id):
+def formEditarConductor(request,id):
     
-    conductores = list(Conductor.objects.filter(id = id).values())
+    conductor = filtrarConductores(id)
+    
+    return render(request, "motoxapp/admin/editarCond.html", {"datos": conductor})
+
+def filtrarConductores(id):
+    
+    conductores = Conductor.objects.get(id = id)
+    
+    
+    
+    return conductores
+
+def filtrarPasajeros(id):
+    
+    pasajeros = list(Pasajero.objects.filter(id = id).values())
+    
+    pasajero = pasajeros[0]
+    
+    return pasajero
     
 def guardarPasajero(request):
     ident = request.POST['id']
@@ -162,8 +179,10 @@ def guardarConductor(request):
 def editarPasajero(request):
     pass
 
-def editarConductor(request):
-    pass
+def editarConductor(request,id):
+    
+    
+    return render(request,"motoxapp/errores/error_consulta.html",{"id":id})
     
 def eliminarPasajero(request, id):
     pasajero = Pasajero.objects.get(id = id)

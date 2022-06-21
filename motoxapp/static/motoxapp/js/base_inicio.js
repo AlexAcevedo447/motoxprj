@@ -1,8 +1,7 @@
 //EDITAR REGISTROS
-const llamarFormEditarConductor = (id) => {
-    console.log(id)
+const editarConductor = (id) => {
 
-    fetch("/motoxapp/editarPas")
+    fetch("/motoxapp/editarCond/"+id)
 }
 
 const llamarFormEditarPasajero = (id) => {

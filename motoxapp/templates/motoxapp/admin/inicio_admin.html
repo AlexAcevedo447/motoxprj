@@ -32,7 +32,7 @@
                     {% if editable == True %}
                     
                         <td>
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#editarConductor" onclick="llamarFormEditarConductor({{conductor.id}})">Editar</button>
+                            <a href="formEditarCond/{{conductor.id}}" class="btn btn-primary">Editar</a>
                             <button class="btn btn-danger" onclick="eliminarConductor({{conductor.id}})">Eliminar</button>
                         </td>
                     

@@ -1,4 +1,5 @@
 
+from asyncio.windows_events import NULL
 from contextlib import nullcontext
 from django.shortcuts import render,redirect
 from django.http.response import JsonResponse, HttpResponse
@@ -92,86 +93,77 @@ def validarAdministrador(request):
     try:
         
         usr = Administrador.objects.get(correo = email, contrasena = passw)
-        editable = True
-        administrador = True
-        
-        pasajeros = Pasajero.objects.all()
-        conductores = Conductor.objects.all()
-        sesion = Sesiones.objects.all()
         
         try:
-            current = Sesiones.objects.get(correo = email, contrasena = passw)
         
-            if current.correo == usr.correo and current.contrasena == usr.contrasena and len(current)>0:
+            try:
                 sesion = Sesiones.objects.all()
             
-            elif len(current) == 0:
-                Sesiones.objects.create(id=usr.id, nombre=usr.nombre, cedula=usr.cedula, correo=usr.correo, contrasena=usr.contrasena)
-                
-        except Sesiones.DoesNotExist:
-            contexto = {
-                "permisos" : administrador,
-                "pasajeros" : pasajeros,
-                "conductores" : conductores,
-                "editable" : editable,
-                "admiistrador" : sesion
-            }
+            except Sesiones.DoesNotExist:
+                sesion=Sesiones.objects.create(id=usr.id, nombre=usr.nombre, cedula=usr.cedula, correo=usr.correo, contrasena=usr.contrasena)
+               
             
+        except Administrador.DoesNotExist:
+            pass
+            
+        return inicioAdmin(request)
         
-        
-        
-        
-        return render(request, "motoxapp/admin/inicio_admin.html", contexto)
-    
     except Administrador.DoesNotExist:    
         
         mensaje = "Usuario y contraseña incorrectos"
-        return render(request,"motoxapp/errores/error_ingreso.html")  
+        return render(request,"motoxapp/errores/error_ingreso.html",mensaje)  
     
     
-def inicioAdmin():
-    return redirect("motoxapp/admin/inicio_admin.html")
+def inicioAdmin(request):
+    return render(request,"motoxapp/admin/inicio_admin.html",adminData())
+
+def inicioCond(request):
+    return render(request,"motoxapp/conductor/inicio_cond.html",condData())
+
+def inicioPas(request):
+    return render(request,"motoxapp/pasajero/inicio_pas.html",pasData())
 
 def logOutPas(request):
     return HttpResponse("Saliendo")
+
+def filtrarConductores(request,id):
+    
+    conductores = list(Conductor.objects.filter(id = id).values())
     
 def guardarPasajero(request):
-    
-    if request.method == 'POST':
-        ident = request.POST['id']
-        nombre = request.POST['nombre']
-        cedula = request.POST['cedula']
-        correo = request.POST['correo']
-        contra = request.POST['contrasena']
+    ident = request.POST['id']
+    nombre = request.POST['nombre']
+    cedula = request.POST['cedula']
+    correo = request.POST['correo']
+    contra = request.POST['contrasena']
         
-    try:
-        Pasajero.objects.create(id = ident, nombre = nombre, cedula = cedula, correo = correo, contrasena = contra)
+    Pasajero.objects.create(id = ident, nombre = nombre, cedula = cedula, correo = correo, contrasena = contra)
         
-        return render(request,"motoxapp/admin/inicio_admin.html",adminData())
-        
-    except Exception:
-        mensaje = "Registro no guardado"
-        
-        return render(request, "motoxapp/admin/inicio_admin.html",mensaje)
+    return inicioAdmin(request)
     
 def guardarConductor(request):
-    
-    if request.method == 'POST':
-        ident = request.POST['id']
-        nombre = request.POST['nombre']
-        cedula = request.POST['cedula']
-        correo = request.POST['correo']
-        contra = request.POST['contrasena']
+    ident = request.POST['id']
+    nombre = request.POST['nombre']
+    cedula = request.POST['cedula']
+    correo = request.POST['correo']
+    contra = request.POST['contrasena']
         
     try:
         Conductor.objects.create(id = ident, nombre = nombre, cedula = cedula, correo = correo, contrasena = contra)
+        sesion= Sesiones.objects.all()
         
-        return render(request,"motoxapp/admin/inicio_admin.html",adminData())
+        return inicioAdmin(request)
         
-    except Exception:
+    except :
         mensaje = "Registro no guardado"
         
-        return render(request, "motoxapp/admin/inicio_admin.html",mensaje)
+        return render(request, "motoxapp/errores/error_consulta.html",{"mensaje":mensaje})
+    
+def editarPasajero(request):
+    pass
+
+def editarConductor(request):
+    pass
     
 def eliminarPasajero(request, id):
     pasajero = Pasajero.objects.get(id = id)
@@ -192,10 +184,11 @@ def eliminarConductor(request, id):
     try:
         conductor.delete()
     
-        return render(request,"motoxapp/admin/inicio_admin.html",adminData())
+        return inicioAdmin(request)
     except Exception:
+        mensaje = "Registro no se pudo borrar"
     
-        return render(request,"motoxapp/admin/inicio_admin.html",adminData())
+        return render(request,"motoxapp/errores/error_consulta.html",mensaje)
 
 def adminData():
     editable = True
@@ -203,10 +196,8 @@ def adminData():
         
     pasajeros = Pasajero.objects.all()
     conductores = Conductor.objects.all()
-    sesion = Sesiones.objects.all()
         
-    if len(sesion)>0 :
-        sesion = Sesiones.objects.all()
+    sesion = Sesiones.objects.all()
         
         
     contexto = {
@@ -214,7 +205,7 @@ def adminData():
         "pasajeros" : pasajeros,
         "conductores" : conductores,
         "editable" : editable,
-        "admiistrador" : sesion
+        "administrador" : sesion
     }
     
     return contexto
@@ -247,6 +238,5 @@ def condData():
         "conductor" : usr,
         "editable" : editable
     }
-
-def delete(request):
-     pass
+    
+    return contexto

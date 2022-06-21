@@ -32,7 +32,7 @@
                     {% if editable == True %}
                     
                         <td>
-                            <button class="btn btn-primary" onclick="llamarFormEditarConductor({{conductor.id}})">Editar</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#editarConductor" onclick="llamarFormEditarConductor({{conductor.id}})">Editar</button>
                             <button class="btn btn-danger" onclick="eliminarConductor({{conductor.id}})">Eliminar</button>
                         </td>
                     
@@ -62,7 +62,7 @@
                     {% if editable == True %}
                     
                         <td>
-                            <button class="btn btn-primary" onclick="llamarFormEditarPasajero({{pasajero.id}})">Editar</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#editarPasajero" onclick="llamarFormEditarPasajero({{pasajero.id}})">Editar</button>
                             <button class="btn btn-danger" onclick="eliminarPasajero({{pasajero.id}})">Eliminar</button>
                         </td>
                     

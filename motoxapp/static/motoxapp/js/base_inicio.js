@@ -1,10 +1,48 @@
+//EDITAR REGISTROS
 const llamarFormEditarConductor = (id) => {
+    console.log(id)
+
+    fetch("/motoxapp/editarPas")
+}
+
+const llamarFormEditarPasajero = (id) => {
     console.log(id)
 }
 
+//GUARDAR REGISTROS
+const formularioGuardarPasajero = document.getElementById("guardarPas");
+const formularioGuardarConductor = document.getElementById("guardarCond")
+
+formularioGuardarConductor.addEventListener("submit",(e)=>{
+    e.preventDefault()
+    let formulario = new FormData(formularioGuardarConductor)
+    fetch("/motoxapp/guardarCond", {
+        method: "POST",
+        body: formulario
+    })
+    .then(res => {
+        formularioGuardarConductor.reset()
+        location.reload()
+    })
+})
+
+
+formularioGuardarPasajero.addEventListener("submit",(e)=>{
+    e.preventDefault()
+    let formulario = new FormData(formularioGuardarPasajero)
+    fetch("/motoxapp/guardarPas", {
+        method: "POST",
+        body: formulario
+    })
+    .then(res => {
+        formularioGuardarPasajero.reset()
+        location.reload()
+    })
+})
+
+//ELIMINAR REGISTROS
 const eliminarConductor = (id) => {
-    var form = document.getElementById("guardarCond")
-    // console.log(id)
+    console.log(id)
 
     
 
@@ -18,16 +56,17 @@ const eliminarConductor = (id) => {
         confirmButtonText: 'Si'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("http://localhost:8000/motoxapp/conductor/eliminar/" + id)
+            fetch("http://localhost:8000/motoxapp/eliminarCond/" + id)
                 .then(res => {
                     res.json()
                 })
                 .then(response => {
-                    form.reset()
+                    
                     Swal.fire(
                         'Registro borrado',
                         'success'
                     )
+                    location.reload()
                 })
             
         }
@@ -37,9 +76,7 @@ const eliminarConductor = (id) => {
 
 }
 
-const llamarFormEditarPasajero = (id) => {
-    console.log(id)
-}
+
 
 const eliminarPasajero = (id) => {
     console.log(id)
@@ -53,7 +90,7 @@ const eliminarPasajero = (id) => {
         confirmButtonText: 'Si'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("http://localhost:8000/motoxapp/pasajero/eliminar/" + id)
+            fetch("http://localhost:8000/motoxapp/eliminarPas/" + id)
                 .then(res => {
                     res.json()
                 })
@@ -62,6 +99,7 @@ const eliminarPasajero = (id) => {
                         'Registro borrado',
                         'success'
                     )
+                    location.reload()
                 })
             
         }

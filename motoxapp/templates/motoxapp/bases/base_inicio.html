@@ -363,60 +363,13 @@
                     </div>
 
                     
-                    <div class="modal fade" id="editarPasajero" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3>Editar Pasajero</h3>
-                                    <button class="close" data-dismiss="modal" aria-label="Cerrar">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <form  id="editarPas" method="post" class="form">
-                                            {% csrf_token %}
-                                            <div class="input-group">
-                                                <input class="form-control" type="number" placeholder = "ID" name="id" id="id" disabled="true">
-                                            </div>
-                                            <br>                        
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" placeholder = "Nombre" name="nombre" id="nombre">
-                                            </div>
-                                            <br>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" placeholder = "Cedula" name="cedula" id="cedula">
-                                            </div>
-                                            <br>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" placeholder = "Correo" name="correo" id="correo">
-                                            </div>
-                                            <br>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" placeholder = "Contraseña" name="contrasena" id="contrasena">
-                                            </div>
-            
-                                            <div class="modal-footer">
-                                                <div class="btn-block">
-                                                    <button type="submit" class="btn btn-primary">
-                                                        Guardar
-                                                    </a>
-                                                    <button class="btn btn-secondary" data-dismiss="modal">
-                                                        Cancelar
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
+                    
 
+                    
         </div>
+        
         <script src="{% static 'motoxapp/js/swal.js' %}"></script>
-        <script src="{% static 'motoxapp/js/base_inicio.js' %}"></script>
+        <script src="../../../static/motoxapp/js/base_inicio.js"></script>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

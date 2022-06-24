@@ -62,7 +62,7 @@
                     {% if editable == True %}
                     
                         <td>
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#editarPasajero" onclick="llamarFormEditarPasajero({{pasajero.id}})">Editar</button>
+                            <a href="formEditarPas/{{pasajero.id}}" class="btn btn-primary">Editar</a>
                             <button class="btn btn-danger" onclick="eliminarPasajero({{pasajero.id}})">Eliminar</button>
                         </td>
                     

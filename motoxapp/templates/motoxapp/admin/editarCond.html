@@ -23,7 +23,7 @@
                     <div class="form-group">
                         <form 
                               id="formEditarConductor"
-                              action="{% url 'editarConductor' %}"
+                              action="/motoxapp/editarCond/{{datos.id}}"
                               method="post"
                               class="form">
                             {% csrf_token %}

@@ -1,18 +1,4 @@
-//EDITAR REGISTROS
 
-
-const llamarFormEditarPasajero = (id) => {
-    console.log(id)
-
-    fetch("http://localhost:8000/motoxapp/filtrarCond/"+id)
-    .then(response =>response.json())
-    .then(conductor=>{
-        console.log(conductor[0])
-    }).catch((err)=>{
-        console.log(err)
-
-    })
-}
 
 //GUARDAR REGISTROS
 const formularioGuardarPasajero = document.getElementById("guardarPas");

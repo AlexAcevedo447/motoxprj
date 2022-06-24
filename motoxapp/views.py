@@ -1,6 +1,7 @@
 
 
-from django.shortcuts import render
+from tkinter import N
+from django.shortcuts import redirect, render
 import json
 from django.http.response import JsonResponse, HttpResponse
 from django.views import View
@@ -21,6 +22,15 @@ def loginAdmin(request):
 
 def loginPas(request):
     return render(request,"motoxapp/pasajero/login_pas.html")
+
+def inicioAdmin(request):
+    return render(request,"motoxapp/admin/inicio_admin.html",adminData())
+
+def inicioCond(request):
+    return render(request,"motoxapp/conductor/inicio_cond.html",condData())
+
+def inicioPas(request):
+    return render(request,"motoxapp/pasajero/inicio_pas.html",pasData())
 
 def validarPasajero(request):
     
@@ -50,7 +60,7 @@ def validarPasajero(request):
     except Pasajero.DoesNotExist:    
         
         mensaje = "Usuario y contraseña incorrectos"
-        return render(request,"motoxapp/errores/error_ingreso.html")
+        return render(request,"motoxapp/errores/error_ingreso.html",)
     
     
 def validarConductor(request):
@@ -81,7 +91,7 @@ def validarConductor(request):
     except Conductor.DoesNotExist:    
         
         mensaje = "Usuario y contraseña incorrectos"
-        return render(request,"motoxapp/errores/error_ingreso.html")
+        return render(request,"motoxapp/errores/error_ingreso.html",{"mensaje":mensaje})
     
 
 def validarAdministrador(request):
@@ -92,38 +102,31 @@ def validarAdministrador(request):
         
         print(f"Usuario = {email}, Contraseña = {passw}") 
     
-    try:
         
         usr = Administrador.objects.get(correo = email, contrasena = passw)
         
-        try:
+    try:
+            
+        sesion = Sesiones.objects.all()
+            
+        if sesion==None:
+            sesion=Sesiones.objects.create(id=usr.id, nombre=usr.nombre, cedula=usr.cedula, correo=usr.correo, contrasena=usr.contrasena)
         
-            try:
-                sesion = Sesiones.objects.all()
-            
-            except Sesiones.DoesNotExist:
-                sesion=Sesiones.objects.create(id=usr.id, nombre=usr.nombre, cedula=usr.cedula, correo=usr.correo, contrasena=usr.contrasena)
-               
-            
-        except Administrador.DoesNotExist:
-            pass
-            
+        
         return inicioAdmin(request)
         
-    except Administrador.DoesNotExist:    
-        
+    except Administrador.DoesNotExist:
         mensaje = "Usuario y contraseña incorrectos"
-        return render(request,"motoxapp/errores/error_ingreso.html",mensaje)  
+        return render(request,"motoxapp/errores/error_ingreso.html",{"mensaje":mensaje}) 
+            
+            
+            
+        
+    
+        
     
     
-def inicioAdmin(request):
-    return render(request,"motoxapp/admin/inicio_admin.html",adminData())
 
-def inicioCond(request):
-    return render(request,"motoxapp/conductor/inicio_cond.html",condData())
-
-def inicioPas(request):
-    return render(request,"motoxapp/pasajero/inicio_pas.html",pasData())
 
 def logOutPas(request,id):
     return HttpResponse("Saliendo")
@@ -133,6 +136,12 @@ def formEditarConductor(request,id):
     conductor = filtrarConductores(id)
     
     return render(request, "motoxapp/admin/editarCond.html", {"datos": conductor})
+
+def formEditarPasajero(request,id):
+    
+    pasajeros = filtrarPasajeros(id)
+    
+    return render(request, "motoxapp/admin/editarPas.html", {"datos": pasajeros})
 
 def filtrarConductores(id):
     
@@ -152,9 +161,15 @@ def guardarPasajero(request):
     cedula = request.POST['cedula']
     correo = request.POST['correo']
     contra = request.POST['contrasena']
+    
+    if ident != None and nombre != None and cedula != None and correo != None and contra != None:
         
-    Pasajero.objects.create(id = ident, nombre = nombre, cedula = cedula, correo = correo, contrasena = contra)
+        Pasajero.objects.create(id = ident, nombre = nombre, cedula = cedula, correo = correo, contrasena = contra)
         
+        ##redireccionamientos en la url
+        return redirect("/motoxapp/validarAdmin")
+    
+    ## redireccionamientos en vista y templates    
     return inicioAdmin(request)
     
 def guardarConductor(request):
@@ -165,8 +180,11 @@ def guardarConductor(request):
     contra = request.POST['contrasena']
         
     try:
-        Conductor.objects.create(id = ident, nombre = nombre, cedula = cedula, correo = correo, contrasena = contra)
-        sesion= Sesiones.objects.all()
+        
+        if ident != None and nombre != None and cedula != None and correo != None and contra != None:
+            Conductor.objects.create(id = ident, nombre = nombre, cedula = cedula, correo = correo, contrasena = contra)
+            ##redireccionamientos en la url
+            return redirect("/motoxapp/validarAdmin")
         
         return inicioAdmin(request)
         
@@ -175,47 +193,71 @@ def guardarConductor(request):
         
         return render(request, "motoxapp/errores/error_consulta.html",{"mensaje":mensaje})
     
-@method_decorator(csrf_exempt)
-def dispatch(self, request, *args, **kwargs):
-    
-    return editarPasajero().dispatch(request, *args, **kwargs)
-    
-def editarPasajero(request):
-    pass
 
-@method_decorator(csrf_exempt)
-def dispatch(self, request, *args, **kwargs):
     
-    return editarConductor().dispatch(request, *args, **kwargs)
-
-def editarConductor(request):
-    
-    ide= request.POST.get('id',False)
+def editarPasajero(request,ide):
     name= request.POST.get('nombre',False)
     NIT= request.POST.get('cedula',False)
     email= request.POST.get('correo',False)
     passw= request.POST.get('contrasena',False)
     
-    cond = Conductor.objects.get(id= ide)
+    try:
+        pas = Pasajero.objects.get(id= ide)
     
-    cond.nombre = name
-    cond.cedula = NIT
-    cond.correo = email
-    cond.contrasena = passw
+        if pas is not None:
+            pas.nombre = name
+            pas.cedula = NIT
+            pas.correo = email
+            pas.contrasena = passw
     
-    cond.save()
+            pas.save()
+        
+            return redirect("/motoxapp/validarAdmin")
+        return inicioAdmin(request)
+    except Pasajero.DoesNotExist:
+        mensaje={"mensaje": "Fallo al editar registro", "registro":pas}
+        
+        return render(request,"motoxapp/errores/error_consulta.html",mensaje)
+
+
+
+
+def editarConductor(request,ide):
+    name= request.POST.get('nombre',False)
+    NIT= request.POST.get('cedula',False)
+    email= request.POST.get('correo',False)
+    passw= request.POST.get('contrasena',False)
+    
+    try:
+        cond = Conductor.objects.get(id= ide)
+    
+        if cond is not None:
+            cond.nombre = name
+            cond.cedula = NIT
+            cond.correo = email
+            cond.contrasena = passw
+    
+            cond.save()
+        
+            return redirect("/motoxapp/validarAdmin")
+        return inicioAdmin(request)
+    except Conductor.DoesNotExist:
+        mensaje={"mensaje": "Fallo al editar registro", "registro":cond}
+        
+        return render(request,"motoxapp/errores/error_consulta.html",mensaje)
     
     
-    
-    return inicioAdmin(request)
     
 def eliminarPasajero(request, id):
     pasajero = Pasajero.objects.get(id = id)
     
     try:
-        pasajero.delete()
+        if pasajero is not None:
+            pasajero.delete()
+            
+            return redirect("/motoxapp/validarAdmin")
     
-        return  render(request,"motoxapp/admin/inicio_admin.html",adminData())
+        return  inicioAdmin(request)
     except Exception:
     
         return render(request,"motoxapp/admin/inicio_admin.html")
@@ -226,7 +268,10 @@ def eliminarConductor(request, id):
     conductor =Conductor.objects.get(id = id)
     
     try:
-        conductor.delete()
+        if conductor is not None:
+            conductor.delete()
+            
+            return redirect("/motoxapp/validarAdmin")
     
         return inicioAdmin(request)
     except Exception:

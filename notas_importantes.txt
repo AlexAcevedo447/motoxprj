@@ -1,2 +1,8 @@
 entorno virtual = motoxpy
 
+paquetes a instalar={
+    django-cors-headers,
+    django,
+    mysql,
+}
+
